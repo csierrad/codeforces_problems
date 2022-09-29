@@ -1,3 +1,9 @@
+/*
+Tram
+800
+https://codeforces.com/problemset/problem/116/A
+*/
+
 #include <stdio.h>
 
 int main(){

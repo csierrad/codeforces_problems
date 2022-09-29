@@ -1,3 +1,9 @@
+/*
+Beautiful Year
+800
+https://codeforces.com/problemset/problem/271/A
+*/
+
 #include <stdio.h>
 
 int diff_dig(int n){

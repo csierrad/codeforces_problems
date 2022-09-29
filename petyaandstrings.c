@@ -1,3 +1,9 @@
+/*
+Petya and Strings
+800
+https://codeforces.com/problemset/problem/112/A
+*/
+
 #include <stdio.h>
 #include <ctype.h>
 

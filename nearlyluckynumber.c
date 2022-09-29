@@ -1,3 +1,9 @@
+/*
+Nearly Lucky Number
+800
+https://codeforces.com/problemset/problem/110/A
+*/
+
 #include <stdio.h>
 #include <stdint.h>
 

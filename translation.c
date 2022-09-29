@@ -1,3 +1,9 @@
+/*
+Translation
+800
+https://codeforces.com/problemset/problem/41/A
+*/
+
 #include <stdio.h>
 #include <string.h>
 

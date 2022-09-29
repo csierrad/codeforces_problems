@@ -1,3 +1,9 @@
+/*
+Anton and Danik
+800
+https://codeforces.com/problemset/problem/734/A
+*/
+
 #include <stdio.h>
 
 int main(){

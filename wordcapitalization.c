@@ -1,3 +1,9 @@
+/*
+Word Capitalization
+800
+https://codeforces.com/problemset/problem/281/A
+*/
+
 #include <stdio.h>
 #include <ctype.h>
 

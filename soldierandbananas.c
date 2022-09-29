@@ -1,3 +1,9 @@
+/*
+Soldier and Bananas
+800
+https://codeforces.com/problemset/problem/546/A
+*/
+
 #include <stdio.h>
 
 int main(){

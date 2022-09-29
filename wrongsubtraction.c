@@ -1,3 +1,9 @@
+/*
+Wrong Subtractionç
+800
+https://codeforces.com/problemset/problem/977/A
+*/
+
 #include <stdio.h>
 
 int main(){

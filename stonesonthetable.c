@@ -1,3 +1,9 @@
+/*
+Stones on the Table
+800
+https://codeforces.com/problemset/problem/266/A
+*/
+
 #include <stdio.h>
 
 int main(){

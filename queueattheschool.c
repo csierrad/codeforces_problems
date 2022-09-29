@@ -1,3 +1,9 @@
+/*
+Queue at the School
+800
+https://codeforces.com/problemset/problem/266/B
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 

@@ -1,3 +1,9 @@
+/*
+Word
+800
+https://codeforces.com/problemset/problem/59/A
+*/
+
 #include <stdio.h>
 #include <ctype.h>
 

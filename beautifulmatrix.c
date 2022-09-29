@@ -1,3 +1,9 @@
+/*
+Beautifull Matrix
+800
+https://codeforces.com/problemset/problem/263/A
+*/
+
 #include <stdio.h>
 #include <math.h>
 

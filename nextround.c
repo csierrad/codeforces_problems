@@ -1,3 +1,9 @@
+/*
+Next Round
+800
+https://codeforces.com/problemset/problem/158/A
+*/
+
 #include <stdio.h>
 
 int main()

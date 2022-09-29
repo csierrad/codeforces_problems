@@ -1,3 +1,9 @@
+/*
+Helpful Maths
+800
+https://codeforces.com/problemset/problem/339/A
+*/
+
 #include <stdio.h>
 #include <string.h>
 

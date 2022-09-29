@@ -1,3 +1,9 @@
+/*
+Bit++
+800
+https://codeforces.com/problemset/problem/282/A
+*/
+
 #include <stdio.h>
 
 int main(){
