@@ -1,1 +1,86 @@
 #! /usr/bin/env bash
+
+initail_checks(){
+	if [[ !(-d .order_files) ]]; then
+		echo "Run './order init' to create the structure needed."
+		exit
+	fi
+}
+
+
+init(){
+	$(mkdir .order_files)
+	$(touch ./.order_files/existing_difficulties)
+	$(mv ./order ./.order_files)
+}
+
+
+get_difficulty(){
+	local difficulty=$(head -n 3 $1 | tail -n 1)
+	
+	echo "$difficulty"
+}
+
+
+exist_difficulty(){
+	#if [[ !(-e ./.order_files/existing_difficulties) ]]; then
+	#	$(touch ./.order_files/existing_difficulties)
+	#fi
+	
+	difficulties=($(cat ./.order_files/existing_difficulties))
+
+	#This for loop iterates thorugh all difficulties array values storing then into i
+	for i in "${difficulties[@]}"; do 
+		if [[ "$i" == "$1" ]]; then
+			echo "1"
+			return
+		fi
+
+	done
+
+	echo "0"
+	return
+}
+
+order(){
+	#Checks if the .order_files folder exists at the current folder
+	initail_checks
+
+	#Gets number of files with .c extension
+	nfiles=$(ls *.c | wc -l)
+
+	#Creates an array with all files ending with .c extension
+	files=($(ls *.c))
+
+
+	for ((i = 0 ; i < nfiles ; i++)); do
+		difficulty="$(get_difficulty ${files[$i]})"
+		exists=$(exist_difficulty "$difficulty")
+		if [[ "1" == "$exists" ]];  then
+			$(mv "${files[$i]}" "./$difficulty")
+		else
+			echo "Create new difficulty folder ($difficulty) for ${files[$i]} file? [y/n]"
+			read ans
+			if [[ "$ans" == "y" ]]; then
+				$(mkdir "$difficulty")
+				$(echo "$difficulty" >>  ./.order_files/existing_difficulties)
+				$(mv "${files[$i]}" "./$difficulty")
+			fi
+		fi
+	done
+
+}
+
+
+case $1 in
+
+	init)
+	init
+	;;
+
+	*)
+	order
+	;;
+
+esac
+
