@@ -48,7 +48,7 @@ int main()
 
 	sort(array, n);
 
-	for(j = 1; j <= n; j++)
+	for (j = 1; j <= n; j++)
 	{
 		for (i = 0, sum1 = 0, sum2 = 0; i < n; i++)
 		{
@@ -56,12 +56,12 @@ int main()
 				sum1 += array[i];
 			else
 				sum2 += array[i];
-
-			if (sum1 > sum2)
-			{
-				printf("%d\n", j);
-				return 0;
-			}
+		}
+		
+		if (sum1 > sum2)
+		{
+			printf("%d\n", j);
+			return 0;
 		}
 	}
 
