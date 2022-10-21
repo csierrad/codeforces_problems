@@ -1,8 +1,11 @@
 #! /usr/bin/env bash
 
+#Remember to change ~/.bashrc alias to intoduce easier the commands 
+
 src="./.cdf_script"
 src_diff="$src/existing_difficulties"
 src_temp="$src/c_template.c"
+
 
 initial_checks(){
 	if [[ !(-d $src) ]]; then
