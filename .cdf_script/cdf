@@ -1,17 +1,27 @@
 #! /usr/bin/env bash
 
-initail_checks(){
-	if [[ !(-d .order_files) ]]; then
-		echo "Run './order init' to create the structure needed."
+src="./.cdf_script"
+src_diff="$src/existing_difficulties"
+src_temp="$src/c_template.c"
+
+initial_checks(){
+	if [[ !(-d $src) ]]; then
+		echo "Run './cdf init' to create the structure needed."
 		exit
 	fi
 }
 
 
 init(){
-	$(mkdir .order_files)
-	$(touch ./.order_files/existing_difficulties)
-	$(mv ./order ./.order_files)
+	#Creates the .cdf_script folder
+	$(mkdir $src)
+	#Creates the existing_difficulties file
+	$(touch $src_diff)
+	#Creates the c_template.c file
+	$(touch $src/c_template.c);
+	$(echo $'/*\n\n*/\n\n#include <stdio.h>\n\nint main(){\n\n\n\n\treturn 0;\n}' >> $src/c_template.c)
+	#Move the cdf script to .cdf_script folder
+	$(mv ./cdf $src)
 }
 
 
@@ -27,24 +37,41 @@ exist_difficulty(){
 	#	$(touch ./.order_files/existing_difficulties)
 	#fi
 	
-	difficulties=($(cat ./.order_files/existing_difficulties))
+	difficulties=($(cat $src_diff))
 
-	#This for loop iterates thorugh all difficulties array values storing then into i
+	#This for loop iterates through all difficulties array values storing then into i
 	for i in "${difficulties[@]}"; do 
 		if [[ "$i" == "$1" ]]; then
 			echo "1"
 			return
 		fi
-
 	done
 
 	echo "0"
 	return
 }
 
+new(){
+
+	initial_checks
+
+	if [[ !(-e $src_temp) ]]; then
+		$(touch $src_temp);
+		$(echo $'/*\n\n*/\n\n#include <stdio.h>\n\nint main(){\n\n\n\n\treturn 0;\n}' >> $src_temp)
+	fi
+
+
+	if [[ $1 ]]; then
+		$(cp $src_temp ./$1.c)
+	else
+		$(cp $src_temp .)
+	fi
+}
+
+
 order(){
 	#Checks if the .order_files folder exists at the current folder
-	initail_checks
+	initial_checks
 
 	#Gets number of files with .c extension
 	nfiles=$(ls *.c | wc -l)
@@ -63,7 +90,7 @@ order(){
 			read ans
 			if [[ "$ans" == "y" ]]; then
 				$(mkdir "$difficulty")
-				$(echo "$difficulty" >>  ./.order_files/existing_difficulties)
+				$(echo "$difficulty" >>  $src_diff)
 				$(mv "${files[$i]}" "./$difficulty")
 			fi
 		fi
@@ -78,9 +105,12 @@ case $1 in
 	init
 	;;
 
+	new)
+	new "$2"
+	;;
+
 	*)
 	order
 	;;
 
 esac
-
