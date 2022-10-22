@@ -7,14 +7,6 @@ src_diff="$src/existing_difficulties"
 src_temp="$src/c_template.c"
 
 
-initial_checks(){
-	if [[ !(-d $src) ]]; then
-		echo "Run './cdf init' to create the structure needed."
-		exit
-	fi
-}
-
-
 init(){
 	#Creates the .cdf_script folder
 	$(mkdir $src)
@@ -25,6 +17,14 @@ init(){
 	$(echo $'/*\n\n*/\n\n#include <stdio.h>\n\nint main(){\n\n\n\n\treturn 0;\n}' >> $src/c_template.c)
 	#Move the cdf script to .cdf_script folder
 	$(mv ./cdf $src)
+}
+
+
+initial_checks(){
+	if [[ !(-d $src) ]]; then
+		echo "Run './cdf init' to create the structure needed."
+		exit
+	fi
 }
 
 
@@ -54,6 +54,49 @@ exist_difficulty(){
 	return
 }
 
+
+order(){
+	#Checks if the .order_files folder exists at the current folder
+	initial_checks
+
+	if [[ -f "./c_template.c" ]]; then
+		echo "There's a file not renamed. Do you want to rename it? [y/n]"
+		read ans
+		if [[ "$ans" == "y" ]]; then
+			echo "Introduce file name without .c extension: "
+			read ans
+			$(mv ./c_template.c ./$ans.c)
+		fi
+	fi
+
+	#Gets number of files with .c extension
+	nfiles=$(ls *.c | wc -l)
+
+	#Creates an array with all files ending with .c extension
+	files=($(ls *.c))
+
+
+	for ((i = 0 ; i < nfiles ; i++)); do
+		difficulty="$(get_difficulty ${files[$i]})"
+		exists=$(exist_difficulty "$difficulty")
+		if [[ "1" == "$exists" ]];  then
+			if [[ "${files[$i]}" != "c_template.c" ]]; then
+				$(mv "${files[$i]}" "./$difficulty")
+			fi
+		else
+			echo "Create new difficulty folder ($difficulty) for ${files[$i]} file? [y/n]"
+			read ans
+			if [[ "$ans" == "y" ]]; then
+				$(mkdir "$difficulty")
+				$(echo "$difficulty" >>  $src_diff)
+				$(mv "${files[$i]}" "./$difficulty")
+			fi
+		fi
+	done
+
+}
+
+
 new(){
 
 	initial_checks
@@ -69,36 +112,6 @@ new(){
 	else
 		$(cp $src_temp .)
 	fi
-}
-
-
-order(){
-	#Checks if the .order_files folder exists at the current folder
-	initial_checks
-
-	#Gets number of files with .c extension
-	nfiles=$(ls *.c | wc -l)
-
-	#Creates an array with all files ending with .c extension
-	files=($(ls *.c))
-
-
-	for ((i = 0 ; i < nfiles ; i++)); do
-		difficulty="$(get_difficulty ${files[$i]})"
-		exists=$(exist_difficulty "$difficulty")
-		if [[ "1" == "$exists" ]];  then
-			$(mv "${files[$i]}" "./$difficulty")
-		else
-			echo "Create new difficulty folder ($difficulty) for ${files[$i]} file? [y/n]"
-			read ans
-			if [[ "$ans" == "y" ]]; then
-				$(mkdir "$difficulty")
-				$(echo "$difficulty" >>  $src_diff)
-				$(mv "${files[$i]}" "./$difficulty")
-			fi
-		fi
-	done
-
 }
 
 
