@@ -1,7 +1,7 @@
 /*
 Traffic Lights
-https://codeforces.com/contest/1744/problem/C
 1000
+https://codeforces.com/contest/1744/problem/C
 */
 
 #include <stdio.h>
